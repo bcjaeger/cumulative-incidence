@@ -9,7 +9,13 @@ for JHS-HWG members who want to create cumulative incidence plots using
 `flchain` data from the `survival` package. These data are loaded and
 printed here.
 
+This is a stratified random sample containing 1/2 of the subjects from a
+study of the relationship between serum free light chain (FLC) and
+mortality. The original sample contains samples on approximately 2/3 of
+the residents of Olmsted County aged 50 or greater.
+
 ``` r
+
 # the flchain data are in the survival package
 library(survival)
 # tidyverse is used for convenience
@@ -20,17 +26,17 @@ library(tidyverse)
 glimpse(flchain)
 #> Rows: 7,874
 #> Columns: 11
-#> $ age        <dbl> 97, 92, 94, 92, 93, 90, 90, 90, 93, 91, 96, 90, 90, 97, 90,~
-#> $ sex        <fct> F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F,~
-#> $ sample.yr  <dbl> 1997, 2000, 1997, 1996, 1996, 1997, 1996, 1999, 1996, 1996,~
-#> $ kappa      <dbl> 5.700, 0.870, 4.360, 2.420, 1.320, 2.010, 0.430, 2.470, 1.9~
-#> $ lambda     <dbl> 4.860, 0.683, 3.850, 2.220, 1.690, 1.860, 0.880, 2.700, 2.1~
-#> $ flc.grp    <dbl> 10, 1, 10, 9, 6, 9, 1, 10, 9, 6, 9, 10, 3, 10, 9, 6, 7, 9, ~
-#> $ creatinine <dbl> 1.7, 0.9, 1.4, 1.0, 1.1, 1.0, 0.8, 1.2, 1.2, 0.8, 1.3, 1.1,~
-#> $ mgus       <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,~
-#> $ futime     <int> 85, 1281, 69, 115, 1039, 1355, 2851, 372, 3309, 1326, 2776,~
-#> $ death      <dbl> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,~
-#> $ chapter    <fct> Circulatory, Neoplasms, Circulatory, Circulatory, Circulato~
+#> $ age        <dbl> 97, 92, 94, 92, 93, 90, 90, 90, 93, 91, 96, 90, 90, 97, ...
+#> $ sex        <fct> F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F,...
+#> $ sample.yr  <dbl> 1997, 2000, 1997, 1996, 1996, 1997, 1996, 1999, 1996, 19...
+#> $ kappa      <dbl> 5.700, 0.870, 4.360, 2.420, 1.320, 2.010, 0.430, 2.470, ...
+#> $ lambda     <dbl> 4.860, 0.683, 3.850, 2.220, 1.690, 1.860, 0.880, 2.700, ...
+#> $ flc.grp    <dbl> 10, 1, 10, 9, 6, 9, 1, 10, 9, 6, 9, 10, 3, 10, 9, 6, 7, ...
+#> $ creatinine <dbl> 1.7, 0.9, 1.4, 1.0, 1.1, 1.0, 0.8, 1.2, 1.2, 0.8, 1.3, 1...
+#> $ mgus       <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,...
+#> $ futime     <int> 85, 1281, 69, 115, 1039, 1355, 2851, 372, 3309, 1326, 27...
+#> $ death      <dbl> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,...
+#> $ chapter    <fct> Circulatory, Neoplasms, Circulatory, Circulatory, Circul...
 ```
 
 # Create cumulative incidence data
@@ -40,6 +46,7 @@ cumulative incidence of a censored outcome, accounting for competing
 risks if necessary.
 
 ``` r
+
 # loading the cmprsk package to gain access to cuminc() function
 library(cmprsk)
 
@@ -66,15 +73,13 @@ cumulative incidence estimates. `ggcompetingrisks` also makes plots, but
 they are a little harder to customize than a standard `ggplot2` plot.
 
 ``` r
+
 # load the survminer package to gain access to the
 # ggcompetingrisks function 
 library(survminer)
+#> Warning: package 'survminer' was built under R version 4.0.3
 #> Loading required package: ggpubr
-#> 
-#> Attaching package: 'survminer'
-#> The following object is masked from 'package:survival':
-#> 
-#>     myeloma
+#> Warning: package 'ggpubr' was built under R version 4.0.3
 
 ggdat <- cml_inc %>%
   ggcompetingrisks(conf.int = T) %>%
@@ -111,6 +116,7 @@ an event between two or more groups. The code utilizes the data that we
 created using `cuminc()` above.
 
 ``` r
+
 ggplot(ggdat, aes(x = time, y = est, col = group))+
  geom_line(size=0.9)+
  # This is a theme that is consistent with many journals expectations

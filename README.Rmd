@@ -15,6 +15,7 @@ knitr::opts_chunk$set(
 
 The goal of the cumulative-incidence project is to provide a tutorial for JHS-HWG members who want to create cumulative incidence plots using `ggplot2`. To demonstrate the code in this repository, we use the `flchain` data from the `survival` package. These data are loaded and printed here.
 
+This is a stratified random sample containing 1/2 of the subjects from a study of the relationship between serum free light chain (FLC) and mortality. The original sample contains samples on approximately 2/3 of the residents of Olmsted County aged 50 or greater.
 ```{r load-and-print-flchain, message = FALSE}
 
 # the flchain data are in the survival package
