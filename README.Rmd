@@ -98,7 +98,7 @@ ggplot(ggdat, aes(x = time, y = est, col = group))+
   text = element_text(size = 13, color = 'black', face = 'bold')
  ) +
  scale_y_continuous(label=scales::percent) +
- labs(x='Time, years', y = 'Cumulative Incidence, stroke or CHD')
+ labs(x='Time, years', y = 'Cumulative Incidence of the event, %')
 
 ```
 
